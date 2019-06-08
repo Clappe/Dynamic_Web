@@ -1,0 +1,91 @@
+Servlet CRUD
+    CRUD是常见的页面功能，即我们常说的增删改查
+    C - Creation 增加
+    R - Retrieve 查询
+    U - Update 修改
+    D - DELETE 删除
+1、Servlet查询
+
+    1.1 准备实体类Hero（见bean/Hero.java）
+        Hero类有id,name,hp,damage等属性。
+
+        并且为每一个属性提供public的getter和setter。
+
+    1.2 准备DAO 类 HeroDAO（见dao/heroDAO）
+        准备一个HeroDAO，提供增加，删除，修改，查询等常规数据库操作方法
+
+    1.3 创建表Hero的SQL
+        用于创建表Hero的SQL语句
+            DROP TABLE IF EXISTS `hero`;
+
+            CREATE TABLE `hero` (
+              `id` int(11) NOT NULL AUTO_INCREMENT,
+              `name` varchar(30) DEFAULT NULL,
+              `hp` float DEFAULT NULL,
+              `damage` int(11) DEFAULT NULL,
+              PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+    1.4 为web应用导入mysql-jdbc的jar包
+        为web应用导入mysql-jdbc的jar包与为项目导入mysql-jdbc的jar包不同，其作用的web应用在tomcat中运行起来后，能够找到jar包中的类。
+        所以需要把 mysql 的jar包放在WEB-INF/lib 目录下。
+        注： 放在WEB-INF/lib 下指的是能够web应用中找到对应的class，如果要在eclipse中做调试，还是需要为项目添加该jar才可以。
+
+    1.5 编写 HeroListServlet（见heroListServlet.java）
+        做一个Hero的维护页面需要一些通用的操作，比如增加，删除，编辑，修改，查询等。
+
+        每个不同的操作，都需要一个对应的Servlet，除了做Hero之外，还会做到其他的一些表的相关操作，所以好的规范会对将来的维护更有好处。
+
+        一般会这样命名,以查询为例 HeroListServlet ： [表][行为]Servlet 这样一种命名规则。
+
+        所以对于Hero而言就会如此命名：
+        增加 HeroAddServlet
+        删除 HeroDeleteServlet
+        编辑 HeroEditServlet
+        修改 HeroUpdateServlet
+        查询 HeroListServlet
+
+
+        在HeroListServlet中，会使用HeroDAO把数据查询出来，然后拼接成一个table用于显示其内容
+
+    1.6 配置web.xml
+
+    1.7 运行
+
+2、Servlet 增加
+
+    2.1 准备增加的页面 addHero.html
+        在web目录下增加addHero.html
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+        表示用UTF-8显示中文，同时浏览器也会使用UTF-8编码提交中文
+
+        form:
+        action设置为addHero路径
+        method设置为post 也是为了提交中文
+
+    2.2 编写 HeroAddServlet（见addHeroServlet.java）
+        HeroAddServlet 中根据浏览器传过来的参数，创建一个Hero对象。 接着通过HeroDAO把该对象保存到数据库中。
+        最后使用客户端跳转到listHero查看所有的Hero，就能看到新加入的Hero对象了
+
+        request.setCharacterEncoding("UTF-8");
+
+
+        表示使用UTF-8的方式获取浏览器传过来的中文
+
+    2.3 配置web.xml
+
+    2.4 运行
+
+3、Servlet 删除
+
+    3.1 提供delete超链
+        修改heroLIstServlet，多一个单元格，是一个超链
+
+        超链的href属性指向地址 /deleteHero?id=217(每条不同的记录id不一样)
+
+    3.2 修改heroListServlet
+        为table新增加一列delete,对于每条hero数据，增加一个delete超链
+
