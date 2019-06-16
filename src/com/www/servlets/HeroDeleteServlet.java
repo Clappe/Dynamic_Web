@@ -25,6 +25,6 @@ public class HeroDeleteServlet extends HttpServlet {
 
         new heroDAO().delete(id);
 
-        resp.sendRedirect("/listHero1");
+        resp.sendRedirect("/Dynamic_Web_war_exploded/listHero1");
     }
 }

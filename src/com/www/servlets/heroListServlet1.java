@@ -31,13 +31,12 @@ public class heroListServlet1 extends HttpServlet {
         stringBuffer.append("<table align = 'center' border = '1' cellspacing = '0'>\r\n");
         stringBuffer.append("<tr><td>id</td><td>name</td><td>hp</td><td>damage</td><td>delete</td></tr>\r\n");
 
-        String trFormat = "<tr><td>%d</td><td>%s</td><td>%f</td><td>%d</td><td><a href = 'deleteHero?id = %d'>" +
-                "delete</a> </td></tr>\r\n";
-
+        String trFormat = "<tr><td>%d</td><td>%s</td><td>%f</td><td>%d</td><td><a href='deleteHero?id=%d'>" +
+                "delete</a></td></tr>\r\n";
+        //注意deleteHero?id=%d语句中?两边不要留空，id=%d中=两边也不要留空，否则会出错
         for (Hero hero : heroes
              ) {
-            String tr = String.format(trFormat, hero.getId(), hero.getName(), hero.getHp(), hero.getDamage(),
-                    hero.getId());
+            String tr = String.format(trFormat, hero.getId(), hero.getName(), hero.getHp(), hero.getDamage(), hero.getId());
             stringBuffer.append(tr);
         }
 
