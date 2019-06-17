@@ -84,8 +84,7 @@ public class heroDAO {
         Hero hero = null;
 
         try (Connection connection = getConnection(); Statement statement = connection.createStatement();){
-            String sql = "select * form hero where id = " + id;
-
+            String sql = "select * from hero where id = " + id;
             ResultSet resultSet = statement.executeQuery(sql);
 
             if (resultSet.next()){

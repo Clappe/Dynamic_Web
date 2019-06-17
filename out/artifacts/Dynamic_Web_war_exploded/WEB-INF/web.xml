@@ -48,4 +48,31 @@
         <servlet-name>HeroDeleteServlet</servlet-name>
         <url-pattern>/deleteHero</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>heroListServlet2</servlet-name>
+        <servlet-class>com.www.servlets.heroListServlet2</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>heroListServlet2</servlet-name>
+        <url-pattern>/listHero2</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>HeroEditServlet</servlet-name>
+        <servlet-class>com.www.servlets.HeroEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HeroEditServlet</servlet-name>
+        <url-pattern>/editHero</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>HeroUpdateServlet</servlet-name>
+        <servlet-class>com.www.servlets.HeroUpdateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HeroUpdateServlet</servlet-name>
+        <url-pattern>/updateHero</url-pattern>
+    </servlet-mapping>
 </web-app>

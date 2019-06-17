@@ -84,8 +84,53 @@ Servlet CRUD
     3.1 提供delete超链
         修改heroLIstServlet，多一个单元格，是一个超链
 
-        超链的href属性指向地址 /deleteHero?id=217(每条不同的记录id不一样)
+        超链的href属性指向地址 /deleteHero?id=217(每条不同的记录id不一样)，注意不要有空格
 
-    3.2 修改heroListServlet
+    3.2 修改heroListServlet（新建一个Servlet,为heroListServlet1）
         为table新增加一列delete,对于每条hero数据，增加一个delete超链
+
+    3.4 配置web.xml
+        配置web.xml 把/deleteHero指向 HeroDeleteServlet
+        把/listHero1指向heroListServlet1
+
+    3.5 编写HeroDeleteServlet
+        首先获取参数id
+        然后通过HeroDAO根据id，删除该对象
+        然后客户端跳转到 /Dynamic_Web_war_exploded/listHero1
+
+    3.6 测试
+        重启tomcat,首先访问查询页面
+
+        http://127.0.0.1/listHero1
+
+4、Servlet编辑（listHeroServlet2.java、HeroEditServlet.java）
+    4.1 修改HeroListServlet （新建heroListServlet2）
+        新增加一列 edit，里面放上指向 /editHero的超链
+
+    4.2 配置web.xml
+        在web.xml中把 /editHero路径映射到 HeroEditServlet类上
+
+    4.3 准备HeroEditServlet
+        HeroEditServlet 根据浏览器传过来的id获取一个hero对象
+
+        然后根据这个hero对象，准备一个类似add.html的页面，不同之处在于每个输入框都是有值的。
+
+        最后还会提供一个type="hidden"的input,用于提交id到路径/updateHero
+
+5、Servlet更新(HeroUpdateServlet.java)
+    5.1 编写 HeroUpdateServlet
+        HeroUpdateServlet
+        根据浏览器提交的id name hp damage创建一个Hero对象
+        然后调用HeroDAO的update，进行更新
+
+        更新结束后，客户端跳转到 /Dynamic_Web_war_exploded/listHero2
+
+    5.2 配置web.xml
+        新增对路径 /updateHero的映射
+
+6、Servlet弊端
+    6.1 使用Servlet进行CRUD开发的弊端
+        用到这里，大家对使用Servlet进行CRUD开发就有比较全面感性认识了。 其中一个比较明显的弊端就是在Servlet编写html代码很痛苦，效率不高，可读性差，难以维护。
+
+        最好可以在html文件里面写html代码，同时又能在里面调用java的变量，那么这样就需要学习JSP了。
 
